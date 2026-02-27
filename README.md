@@ -109,7 +109,6 @@ python visualize_channel.py
 ├── sor_to_gaf_mtf.py          # Transform signals → 3-channel images
 ├── visualize_channel.py       # Visualize transformation results
 ├── requirements.txt           # Python dependencies
-├── otdr_filenames.txt         # List of processed files (180+ traces)
 ├── trace_plot.png             # Example visualization
 │
 ├── data/                      # Input data (not included)
