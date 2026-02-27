@@ -6,6 +6,11 @@ Transform optical fiber network traces into deep learning-ready representations 
 
 This project provides a complete pipeline for processing OTDR (Optical Time-Domain Reflectometry) measurements and converting them into multi-channel image representations suitable for deep learning applications. By transforming 1D fiber signals into 3-channel 2D images using Gramian Angular Fields (GAF) and Markov Transition Fields (MTF), we enable automated fiber health analysis at scale.
 
+## Sample Data and SOR Parser
+
+- **OTDR Trace Training Data**: [Kaggle Dataset](https://www.kaggle.com/datasets/johannesreber/otdr-trace-training-data)  
+- **SOR Parser**: [pyOTDR GitHub Repository](https://github.com/sid5432/pyOTDR)
+
 ### Key Features
 
 - **SOR File Parsing** - Extract trace data, events, and metadata from OTDR .sor files
