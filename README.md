@@ -2,37 +2,35 @@
 
 Transform optical fiber network traces into deep learning-ready representations for automated analysis, anomaly detection, and predictive maintenance.
 
-## 🎯 Overview
+##  Overview
 
 This project provides a complete pipeline for processing OTDR (Optical Time-Domain Reflectometry) measurements and converting them into multi-channel image representations suitable for deep learning applications. By transforming 1D fiber signals into 3-channel 2D images using Gramian Angular Fields (GAF) and Markov Transition Fields (MTF), we enable automated fiber health analysis at scale.
 
 ### Key Features
 
-- ✅ **SOR File Parsing** - Extract trace data, events, and metadata from OTDR .sor files
-- ✅ **JSON Serialization** - Convert binary OTDR data to structured JSON format
-- ✅ **Trace Visualization** - Plot OTDR traces with automatic event detection and marking
-- ✅ **Multi-Channel Transformation** - Convert 1D signals to 3-channel (224×224) images:
-  - GAF Summation - Temporal correlation encoding
-  - GAF Difference - Variation and transition highlighting
-  - Markov Transition Field - Sequential pattern representation
-- ✅ **Batch Processing** - Process entire folders of OTDR measurements automatically
-- ✅ **CNN-Ready Outputs** - Generate tensors compatible with standard deep learning frameworks
+- **SOR File Parsing** - Extract trace data, events, and metadata from OTDR .sor files
+- **JSON Serialization** - Convert binary OTDR data to structured JSON format
+- **Trace Visualization** - Plot OTDR traces with automatic event detection and marking
+-  **Multi-Channel Transformation** - Convert 1D signals to 3-channel (224×224) images:
+     - GAF Summation - Temporal correlation encoding
+     - GAF Difference - Variation and transition highlighting
+     - Markov Transition Field - Sequential pattern representation
+-  **Batch Processing** - Process entire folders of OTDR measurements automatically
+- **CNN-Ready Outputs** - Generate tensors compatible with standard deep learning frameworks
 
-## 📋 Requirements
 
-```
-pyotdr
-numpy
-matplotlib
-pyts
-```
+### Create virtual environment
+
+```bash
+python -m venv .venv
+source .venv/bin/activate
 
 Install all dependencies:
 ```bash
 pip install -r requirements.txt
 ```
 
-## 🚀 Quick Start
+## Quick Start
 
 ### 1. Parse OTDR Files
 
@@ -64,6 +62,8 @@ python draw_otdr.py
 - Event markers at detected locations
 - Fiber metadata in title
 
+![OTDR Trace Example](docs/trace_plot.png)
+
 ### 3. Generate Multi-Channel Image Tensors
 
 Transform traces into 3-channel images for deep learning:
@@ -87,6 +87,9 @@ Inspect the transformation results:
 ```bash
 python visualize_channel.py
 ```
+
+![OTDR Trace Example](docs/GAF_MTF_iamge.png)
+
 
 **Output:** Visualization showing:
 - Top: Original OTDR trace with events
@@ -114,21 +117,7 @@ python visualize_channel.py
     └── gaf_mtf_tensors/       # .npy tensor files
 ```
 
-## 🔬 Technical Details
 
-### OTDR Trace Format
-
-Each trace contains:
-- **Distance array** - Measurement points along fiber (km)
-- **Power array** - Received signal strength (dB)
-- **Events** - Detected anomalies (splices, connectors, breaks)
-  - Event distance (km)
-  - Event type and loss (dB)
-- **Metadata**
-  - Wavelength (1310nm or 1625nm)
-  - Pulse width (50ns, 100ns, 275ns)
-  - Acquisition time (10-180 seconds)
-  - Fiber ID and operator info
 
 ### Transformation Pipeline
 
@@ -158,28 +147,3 @@ The generated 3-channel tensors can be used for:
 7. **Clustering** - Group similar fiber segments for maintenance prioritization
 
 
-## 📈 Example Results
-
-### Original Trace
-![OTDR Trace Example](trace_plot.png)
-
-The plot shows:
-- **Blue line**: OTDR signal power along fiber distance
-- **Red dashed lines**: Detected events (E1-E7)
-- **Gradual power decay**: Normal fiber attenuation
-- **Sharp drops**: Splice losses and connector losses
-- **Noise floor**: End of fiber after last event
-
-### Transformation Visualization
-
-After running `visualize_channel.py`, you'll see:
-- **Top panel**: Original trace with events marked
-- **Bottom panels**: GAF-Sum, GAF-Diff, and MTF representations
-
-The patterns in these images encode:
-- Fiber health characteristics
-- Event locations and types
-- Signal quality and noise levels
-- Temporal dynamics of power changes
-
-# OTDR-Trace-Analysis-with-Representation-Learning

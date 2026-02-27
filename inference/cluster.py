@@ -1,3 +1,4 @@
+
 import os
 import json
 import numpy as np
@@ -5,14 +6,17 @@ import matplotlib.pyplot as plt
 from sklearn.cluster import DBSCAN
 
 # ----------------------------
-# Load embeddings and filenames
+# Load embeddings
 # ----------------------------
 embeddings = np.load("otdr_embeddings.npy")
 
-with open("otdr_filenames.txt", "r") as f:
-    filenames = [line.strip() for line in f.readlines()]
-
 tensor_folder = "./output/parsed_folder"  # folder with OTDR JSONs
+
+# Get JSON filenames sorted (assumes 1-to-1 correspondence with embeddings)
+filenames = sorted([f for f in os.listdir(tensor_folder) if f.endswith(".json")])
+
+if len(filenames) != len(embeddings):
+    raise ValueError(f"Number of embeddings ({len(embeddings)}) does not match number of JSON files ({len(filenames)})")
 
 # ----------------------------
 # DBSCAN clustering
@@ -59,8 +63,7 @@ for cluster_label in clusters:
         color = "blue"
     
     for idx in cluster_indices:
-        json_filename = filenames[idx].replace(".npy", ".json")
-        json_path = os.path.join(tensor_folder, json_filename)
+        json_path = os.path.join(tensor_folder, filenames[idx])
         
         if not os.path.exists(json_path):
             print(f"Warning: JSON not found -> {json_path}")
